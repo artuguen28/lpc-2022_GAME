@@ -1,6 +1,6 @@
 import pygame
-
 from config import *
+from players import *
 
 # Initialize pygame for game machanics
 pygame.init()
@@ -10,6 +10,10 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("PONGOUT")
 
+all_sprites_list = pygame.sprite.Group()
+
+all_sprites_list.add(player1)
+all_sprites_list.add(player2)
 
 def main_game():
 
@@ -19,7 +23,11 @@ def main_game():
             if event.type == pygame.QUIT:
                 run = False
 
+        all_sprites_list.update()
+
         screen.fill(colors["Black"])
+
+        all_sprites_list.draw(screen)
 
         pygame.display.update()
 

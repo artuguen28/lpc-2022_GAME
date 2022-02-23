@@ -2,8 +2,10 @@
 import pygame
 
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 950
+SCREEN_HEIGHT = 700
+
+WALL_WIDTH = 10
 
 # Colors dictionary
 colors = {
@@ -20,3 +22,7 @@ colors = {
 # Screen loop variables
 clock = pygame.time.Clock()
 fps = 60
+
+# Paddles` variables
+paddle_width = 20
+paddle_height = 75
