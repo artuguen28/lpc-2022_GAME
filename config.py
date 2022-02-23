@@ -5,7 +5,7 @@ import pygame
 SCREEN_WIDTH = 950
 SCREEN_HEIGHT = 700
 
-WALL_WIDTH = 10
+WALL_WIDTH = 20
 
 # Colors dictionary
 colors = {

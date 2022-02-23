@@ -1,6 +1,7 @@
 import pygame
 from config import *
 from players import *
+from wall import walls
 
 # Initialize pygame for game machanics
 pygame.init()
@@ -23,10 +24,24 @@ def main_game():
             if event.type == pygame.QUIT:
                 run = False
 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_w]:
+            player1.moveUP(10)
+        if keys[pygame.K_s]:
+            player1.moveDOWN(10)
+
+        if keys[pygame.K_UP]:
+            player2.moveUP(10)
+        if keys[pygame.K_DOWN]:
+            player2.moveDOWN(10)
+        
+        
         all_sprites_list.update()
 
         screen.fill(colors["Black"])
 
+        walls()
+        
         all_sprites_list.draw(screen)
 
         pygame.display.update()
