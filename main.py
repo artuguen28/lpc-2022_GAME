@@ -3,6 +3,7 @@ from config import *
 from players import *
 from obstacles import *
 from wall import walls
+from ball import *
 
 # Initialize pygame for game machanics
 pygame.init()
@@ -16,6 +17,8 @@ all_sprites_list = pygame.sprite.Group()
 
 all_sprites_list.add(player1)
 all_sprites_list.add(player2)
+all_sprites_list.add(ball_1)
+all_sprites_list.add(ball_2)
 
 draw_obstacles()
 
@@ -45,8 +48,12 @@ def main_game():
 
         walls()
 
+        # Obstacles
+        
         obstacles.draw(screen)
         obstacles.update()
+        obstacles_pu.draw(screen)
+        obstacles_pu.update()
         
         all_sprites_list.draw(screen)
 
