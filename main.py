@@ -1,6 +1,7 @@
 import pygame
 from config import *
 from players import *
+from obstacles import *
 from wall import walls
 
 # Initialize pygame for game machanics
@@ -15,6 +16,9 @@ all_sprites_list = pygame.sprite.Group()
 
 all_sprites_list.add(player1)
 all_sprites_list.add(player2)
+
+draw_obstacles()
+
 
 def main_game():
 
@@ -34,13 +38,15 @@ def main_game():
             player2.moveUP(10)
         if keys[pygame.K_DOWN]:
             player2.moveDOWN(10)
-        
-        
+
         all_sprites_list.update()
 
         screen.fill(colors["Black"])
 
         walls()
+
+        obstacles.draw(screen)
+        obstacles.update()
         
         all_sprites_list.draw(screen)
 
