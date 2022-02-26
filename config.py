@@ -4,7 +4,7 @@ import pygame
 
 SCREEN_WIDTH = 950
 SCREEN_HEIGHT = 700
-BALL_VELOCITY = 2
+BALL_VELOCITY = 3
 WALL_WIDTH = 20
 
 # Colors dictionary

@@ -6,6 +6,8 @@ from pygame import surface
 block_colors = [colors["Blue"], colors["Orange"], colors["Green"], colors["Yellow"], colors["Red"]]
 obstacles = pygame.sprite.Group()
 obstacles_pu = pygame.sprite.Group()
+all_bricks = pygame.sprite.Group()
+all_bricks_pu = pygame.sprite.Group()
 
 class Obstacle(pygame.sprite.Sprite):
     
@@ -51,14 +53,21 @@ def draw_obstacles():
         
         for j in range(17):
             if i not in (1, 3, 5, 7):
-                obstacles.add(Obstacle(obstacle_type, (x + dist, y)))
+                brick = Obstacle(obstacle_type, (x + dist, y))
+                obstacles.add(brick)
+                all_bricks.add(brick)
                 y += 39
             else:
                 if j % 2 == 1:
-                    obstacles_pu.add(Obstacle_PU((x + dist, y)))
+                    brick = Obstacle_PU((x + dist, y))
+                    obstacles_pu.add(brick)
+                    all_bricks_pu.add(brick)
+                    
                     y += 39
                 else:
-                    obstacles.add(Obstacle(obstacle_type, (x + dist, y)))
+                    brick = Obstacle(obstacle_type, (x + dist, y))
+                    obstacles.add(brick)
+                    all_bricks.add(brick)
                     y += 39
         y = WALL_WIDTH + 1
         dist += 17
