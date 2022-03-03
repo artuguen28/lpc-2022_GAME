@@ -10,6 +10,10 @@ pygame.init()
 # Initialize pygame for game sounds
 pygame.mixer.init()
 
+brick_sound = pygame.mixer.Sound('sounds/sounds_brick.wav')
+paddle_sound = pygame.mixer.Sound('sounds/sounds_paddle.wav')
+wall_sound = pygame.mixer.Sound('sounds/sounds_wall.wav')
+
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("PONGOUT")
 
@@ -19,8 +23,6 @@ all_sprites_list.add(player1)
 all_sprites_list.add(player2)
 all_sprites_list.add(ball_1)
 all_sprites_list.add(ball_2)
-
-draw_obstacles()
 
 
 def main_game():
@@ -61,22 +63,24 @@ def main_game():
 
         # Colision with normal bricks
 
-        brick_collision_list = pygame.sprite.spritecollide(
-            ball_1, all_bricks, False)
-
+        brick_collision_list = pygame.sprite.spritecollide(ball_1, all_bricks, False)
         for brick in brick_collision_list:
-            brick.kill()
             ball_1.bounce()
+            brick.kill()
+            brick_sound.play()
+            
             
         # Colision with PU bricks
 
-        brick_collision_list = pygame.sprite.spritecollide(
+        brick_pu_collision_list = pygame.sprite.spritecollide(
             ball_1, all_bricks_pu, False)
 
-        for brick in brick_collision_list:
-            brick.kill()
+        for brick in brick_pu_collision_list:
             ball_1.bounce()
+            brick.kill()
+            brick_sound.play()
 
+        # ++++++++++++++++++++++++++++++++++++++++++++++++++
 
         # Colisions ball 2
         if ball_2.rect.y > SCREEN_HEIGHT - WALL_WIDTH - 15:
@@ -98,17 +102,28 @@ def main_game():
         for brick in brick_collision_list:
             brick.kill()
             ball_2.bounce()
+            brick_sound.play()
+
+        # Colision with PU bricks 2
+
+        brick_pu_collision_list = pygame.sprite.spritecollide(
+            ball_2, all_bricks_pu, False)
+
+        for brick in brick_pu_collision_list:
+            ball_2.bounce()
+            brick.kill()
+            brick_sound.play()
+
+        
 
         screen.fill(colors["Black"])
 
         walls()
 
-        # Obstacles
-
-        obstacles.draw(screen)
-        obstacles.update()
-        obstacles_pu.draw(screen)
-        obstacles_pu.update()
+        all_bricks.draw(screen)
+        all_bricks.update()
+        all_bricks_pu.draw(screen)
+        all_bricks_pu.update()
 
         all_sprites_list.draw(screen)
 
