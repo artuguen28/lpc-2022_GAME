@@ -11,7 +11,7 @@ class Obstacle(pygame.sprite.Sprite):
     def __init__(self, obstacle_type, coord: tuple):
         super().__init__()
         self.image = pygame.Surface((15, 34))
-        self.image.fill(block_colors[obstacle_type])
+        self.image.fill(block_colors[3])
         self.rect = self.image.get_rect(topleft=coord)
         if obstacle_type == 0:
             self.score = 7
@@ -37,39 +37,31 @@ class Obstacle_PU(pygame.sprite.Sprite):
 def draw_obstacles():
 
     # Distance from one obstacle to another
-    dist = 5
-    
+    dist = 0
     # type of the obstacle
     obstacle_type = 0
     reverse = 0
     
-    for i in range(7):
-        # Obstacles coordinates
-        x = 411
-        y = WALL_WIDTH + 1
-        
-        for j in range(17):
-            if i not in (1, 3, 5, 7):
+    for i in range(2):
+
+        if i == 0:
+            # Obstacles coordinates
+            x = (SCREEN_WIDTH/2) -18
+
+        for j in range (2):
+
+            if j == 0:
+                y = WALL_WIDTH + 5
+                dist = 0
+            else:
+                y = SCREEN_HEIGHT - WALL_WIDTH -78
+
+            for k in range(2):
                 brick = Obstacle(obstacle_type, (x + dist, y))
                 all_bricks.add(brick)
                 y += 39
-            else:
-                if j % 2 == 1:
-                    brick = Obstacle_PU((x + dist, y))
-                    all_bricks_pu.add(brick)
-                    
-                    y += 39
-                else:
-                    brick = Obstacle(obstacle_type, (x + dist, y))
-                    all_bricks.add(brick)
-                    y += 39
-        y = WALL_WIDTH + 1
+
+        x = x + 18
         dist += 17
-        if obstacle_type == 3:
-            reverse = 1
-        if reverse == 0:
-            obstacle_type += 1
-        if reverse == 1:
-            obstacle_type -= 1
 
 brick_wall = draw_obstacles()

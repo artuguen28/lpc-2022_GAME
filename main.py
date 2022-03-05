@@ -2,6 +2,7 @@ import pygame
 from config import *
 from players import *
 from obstacles import *
+from game import *
 from wall import walls
 from ball import *
 
@@ -129,7 +130,8 @@ def main_game():
 
         pygame.display.update()
 
-        clock.tick(fps)
+        timer()
 
+        clock.tick(fps)
 
 main_game()

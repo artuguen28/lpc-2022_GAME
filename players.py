@@ -21,10 +21,10 @@ class Paddle(pygame.sprite.Sprite):
             self.rect.y = SCREEN_HEIGHT - paddle_height - WALL_WIDTH
 
 
-player1 = Paddle(colors["Blue_ball"], paddle_width, paddle_height)
+player1 = Paddle(colors["Blue_ball"], paddle_width, paddle_1_height)
 player1.rect.x = 25
-player1.rect.y = (SCREEN_HEIGHT // 2) - (paddle_height // 2)
+player1.rect.y = (SCREEN_HEIGHT // 2) - (paddle_1_height // 2)
 
-player2 = Paddle(colors["Red_ball"], paddle_width, paddle_height)
+player2 = Paddle(colors["Red_ball"], paddle_width, paddle_2_height)
 player2.rect.x = SCREEN_WIDTH - paddle_width - 25
-player2.rect.y = (SCREEN_HEIGHT // 2) - (paddle_height // 2)
+player2.rect.y = (SCREEN_HEIGHT // 2) - (paddle_2_height // 2)
