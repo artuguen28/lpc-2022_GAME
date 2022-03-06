@@ -19,7 +19,6 @@ class Ball_1(pygame.sprite.Sprite):
         self.vel[0] = - self.vel[0]
         self.vel[1] = + self.vel[1]
 
-
 class Ball_2(pygame.sprite.Sprite):
 
     def __init__(self, color, width, height):
@@ -46,9 +45,14 @@ class Ball_PU(pygame.sprite.Sprite):
         pygame.draw.rect(self.image, color, [0, 0, width, height])
         self.rect = self.image.get_rect()
         self.vel = BALL_VELOCITY
+        self.direction = 0
 
     def update(self):
-        self.rect.x += self.vel[0]
+        if self.direction == 0:
+            self.rect.x += self.vel
+        if self.direction == 1:
+            self.rect.x -= self.vel
+
 
 ball_1 = Ball_1(colors["Blue_ball"], 14, 14)
 ball_1.rect.x = SCREEN_WIDTH // 4 - 7

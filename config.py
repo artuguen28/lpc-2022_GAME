@@ -30,14 +30,31 @@ fps = 60
 loop = 0
 seconds = 0
 
-# Powerup 1 time and state in order
+# Powerups time and state in order
+# 1
 p1_active_1 = False
 p2_active_1 = False
 p1_active_time_1 = 0
 p2_active_time_1 = 0
 
+#2
+p1_active_2 = False
+p2_active_2 = False
+p1_active_time_2 = 0
+p2_active_time_2 = 0
+
+#3
+p1_active_3 = False
+p2_active_3 = False
+p1_active_time_3 = 0
+p2_active_time_3 = 0
+
 # Paddles` variables
 paddle_width = 20
+paddle_height = 75
+
+paddle_1_speed = 10
+paddle_2_speed = 10
 
 paddle_1_height = 75
 paddle_2_height = 75

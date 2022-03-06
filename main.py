@@ -38,15 +38,15 @@ def main_game():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            player1.moveUP(10)
+            player1.moveUP(paddle_1_speed)
         if keys[pygame.K_s]:
-            player1.moveDOWN(10)
+            player1.moveDOWN(paddle_1_speed)
             
 
         if keys[pygame.K_UP]:
-            player2.moveUP(10)
+            player2.moveUP(paddle_2_speed)
         if keys[pygame.K_DOWN]:
-            player2.moveDOWN(10)
+            player2.moveDOWN(paddle_2_speed)
 
         all_sprites_list.update()
 
@@ -130,8 +130,13 @@ def main_game():
 
         pygame.display.update()
 
+        power_up_1()
+        power_up_2()
+        power_up_3()
+
         timer()
 
         clock.tick(fps)
+
 
 main_game()
