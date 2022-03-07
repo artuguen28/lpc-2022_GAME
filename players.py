@@ -9,6 +9,7 @@ class Paddle(pygame.sprite.Sprite):
         self.image = pygame.Surface([width, height])
         pygame.draw.rect(self.image, color, [0, 0, width, height])
         self.rect = self.image.get_rect()
+        self.height = height
 
     def moveUP(self, pixels):
         self.rect.y -= pixels
@@ -17,14 +18,6 @@ class Paddle(pygame.sprite.Sprite):
 
     def moveDOWN(self, pixels):
         self.rect.y += pixels
-        if self.rect.y > SCREEN_HEIGHT - paddle_height - WALL_WIDTH:
-            self.rect.y = SCREEN_HEIGHT - paddle_height - WALL_WIDTH
+        if self.rect.y > SCREEN_HEIGHT - self.height - WALL_WIDTH:
+            self.rect.y = SCREEN_HEIGHT - self.height - WALL_WIDTH
 
-
-player1 = Paddle(colors["Blue_ball"], paddle_width, paddle_1_height)
-player1.rect.x = 25
-player1.rect.y = (SCREEN_HEIGHT // 2) - (paddle_1_height // 2)
-
-player2 = Paddle(colors["Red_ball"], paddle_width, paddle_2_height)
-player2.rect.x = SCREEN_WIDTH - paddle_width - 25
-player2.rect.y = (SCREEN_HEIGHT // 2) - (paddle_2_height // 2)

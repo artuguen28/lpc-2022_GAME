@@ -4,10 +4,14 @@ from config import BALL_VELOCITY, SCREEN_HEIGHT, SCREEN_WIDTH, colors
 
 class Ball_1(pygame.sprite.Sprite):
     
-    def __init__(self, color, width, height):
+    def __init__(self, width, height):
         super().__init__()
         self.image = pygame.Surface([width, height])
-        pygame.draw.rect(self.image, color, [0, 0, width, height])
+        self.width = width
+        self.height = height
+        self.bonus = False
+        self.color = colors["Blue_ball"]
+        pygame.draw.rect(self.image, self.color, [0, 0, self.width, self.height])
         self.rect = self.image.get_rect()
         self.vel = [BALL_VELOCITY, BALL_VELOCITY]
 
@@ -19,13 +23,25 @@ class Ball_1(pygame.sprite.Sprite):
         self.vel[0] = - self.vel[0]
         self.vel[1] = + self.vel[1]
 
+    def change_colors(self):
+        if self.bonus is True:
+            self.color = colors["Black"]
+            pygame.draw.rect(self.image, self.color, [0, 0, self.width, self.height])
+        else:
+            self.color = colors["Blue_ball"]
+            pygame.draw.rect(self.image, self.color, [0, 0, self.width, self.height])
+
 
 class Ball_2(pygame.sprite.Sprite):
 
-    def __init__(self, color, width, height):
+    def __init__(self, width, height):
         super().__init__()
         self.image = pygame.Surface([width, height])
-        pygame.draw.rect(self.image, color, [0, 0, width, height])
+        self.width = width
+        self.height = height
+        self.bonus = False
+        self.color = colors["Red_ball"]
+        pygame.draw.rect(self.image, self.color, [0, 0, self.width, self.height])
         self.rect = self.image.get_rect()
         self.vel = [BALL_VELOCITY, BALL_VELOCITY]
 
@@ -36,28 +52,28 @@ class Ball_2(pygame.sprite.Sprite):
     def bounce(self):
         self.vel[0] = - self.vel[0]
         self.vel[1] = + self.vel[1]
+    def change_colors(self):
+        if self.bonus is True:
+            self.color = colors["Black"]
+            pygame.draw.rect(self.image, self.color, [0, 0, self.width, self.height])
+        else:
+            self.color = colors["Red_ball"]
+            pygame.draw.rect(self.image, self.color, [0, 0, self.width, self.height])
 
 
 class Ball_PU(pygame.sprite.Sprite):
 
-    def __init__(self, color, width, height):
+    def __init__(self, width, height):
         super().__init__()
         self.image = pygame.Surface([width, height])
-        pygame.draw.rect(self.image, color, [0, 0, width, height])
+        self.color = color["White"]
+        self.direction["Left", "Right"]
+        pygame.draw.rect(self.image, self.color, [0, 0, width, height])
         self.rect = self.image.get_rect()
         self.vel = BALL_VELOCITY
 
     def update(self):
-        self.rect.x += self.vel[0]
-
-ball_1 = Ball_1(colors["Blue_ball"], 14, 14)
-ball_1.rect.x = SCREEN_WIDTH // 4 - 7
-ball_1.rect.y = SCREEN_HEIGHT // 2 - 7
-
-ball_2 = Ball_2(colors["Red_ball"], 14, 14)
-ball_2.rect.x = ((SCREEN_WIDTH * 3) // 4) - 7
-ball_2.rect.y = SCREEN_HEIGHT // 2 - 7
-
-ball_bonus = Ball_PU(colors["White"], 14, 14)
-# ball_bonus.rect.x = Vai depender de onde o bloco foi quebrado
-# ball_bonus.rect.y = Vai depender de onde o bloco foi quebrado
+        if self.direction == 0:
+            self.rect.x += self.vel
+        if self.direction == 1:
+            self.rect.x -= self.vel
