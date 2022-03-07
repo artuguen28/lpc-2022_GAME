@@ -29,14 +29,5 @@ fps = 60
 paddle_width = 20
 paddle_height = 75
 
-# # Powerup 1 time and state in order
-# p1_active_1 = False
-# p2_active_1 = False
-# p1_active_time_1 = 0
-# p2_active_time_1 = 0
-
-# # Paddles` variables
-# paddle_width = 20
-
-# paddle_1_height = 75
-# paddle_2_height = 75
+paddle_1_speed = 10
+paddle_2_speed = 10

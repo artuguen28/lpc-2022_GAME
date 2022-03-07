@@ -49,6 +49,9 @@ ball_2.rect.x = ((SCREEN_WIDTH * 3) // 4) - 7
 ball_2.rect.y = SCREEN_HEIGHT // 2 - 7
 
 ball_pu = Ball_PU(14,14)
+# ball_bonus.rect.x = Vai depender de onde o bloco foi quebrado
+# ball_bonus.rect.y = Vai depender de onde o bloco foi quebrado
+
 # Time control variables
 
 loop = 0
@@ -394,6 +397,7 @@ def main_game():
 
         pygame.display.update()
 
+
         # power_up_1()
         power_up_2()
         power_up_3()
@@ -401,5 +405,6 @@ def main_game():
         timer()
 
         clock.tick(fps)
+
 
 main_game()
