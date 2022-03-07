@@ -58,6 +58,7 @@ ball_pu.rect.y = 1000
 
 loop = 0
 seconds = 0
+blocks_respawn = 0
 
 # Victory condition
 
@@ -95,18 +96,23 @@ all_sprites_list.add(ball_pu)
 
 # Controls time of power ups
 def timer():
-    global loop, seconds
+    global loop, seconds, blocks_respawn
 
     # Print can be enabled to check the seconds increasing up to 60
     # print(loop)
     if loop == 60:
         loop = 0
         seconds = seconds + 1
+        blocks_respawn = blocks_respawn + 1
 
     # Seconds have relation with the powerup released by the bricks also the total power ups
 
     if seconds == 2:
         seconds = 0
+
+    if blocks_respawn == 10:
+        draw_obstacles()
+        blocks_respawn = 0
 
     # Counting seconds every 60 game loop interactions
     loop = loop + 1
@@ -288,6 +294,8 @@ def main_game():
 
             pygame.display.update()
             clock.tick(fps)
+
+        # Win Condition
 
         while win_1 or win_2:
             for event in pygame.event.get():
