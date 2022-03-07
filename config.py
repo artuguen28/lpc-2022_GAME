@@ -10,7 +10,7 @@ WALL_WIDTH = 20
 # Colors dictionary
 colors = {
     "Blue_ball": (0, 0, 255),
-    "Red_ball": (255, 0, 0), 
+    "Red_ball": (255, 0, 0),
     "Black": (0, 0, 0),
     "White": (255, 255, 255),
     "Grey": (212, 210, 212),

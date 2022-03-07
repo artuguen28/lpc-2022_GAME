@@ -3,7 +3,6 @@ from config import *
 
 
 class Paddle(pygame.sprite.Sprite):
-
     def __init__(self, color, width, height):
         super().__init__()
         self.image = pygame.Surface([width, height])

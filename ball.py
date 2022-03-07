@@ -4,7 +4,6 @@ from config import BALL_VELOCITY, SCREEN_HEIGHT, SCREEN_WIDTH, colors
 
 
 class Ball_1(pygame.sprite.Sprite):
-    
     def __init__(self, width, height):
         super().__init__()
         self.image = pygame.Surface([width, height])
@@ -21,8 +20,8 @@ class Ball_1(pygame.sprite.Sprite):
         self.rect.y -= self.vel[1]
 
     def bounce(self):
-        self.vel[0] = - self.vel[0]
-        self.vel[1] = + self.vel[1]
+        self.vel[0] = -self.vel[0]
+        self.vel[1] = +self.vel[1]
 
     def change_colors(self):
         if self.bonus is True:
@@ -34,7 +33,6 @@ class Ball_1(pygame.sprite.Sprite):
 
 
 class Ball_2(pygame.sprite.Sprite):
-
     def __init__(self, width, height):
         super().__init__()
         self.image = pygame.Surface([width, height])
@@ -51,8 +49,8 @@ class Ball_2(pygame.sprite.Sprite):
         self.rect.y += self.vel[1]
 
     def bounce(self):
-        self.vel[0] = - self.vel[0]
-        self.vel[1] = + self.vel[1]
+        self.vel[0] = -self.vel[0]
+        self.vel[1] = +self.vel[1]
 
     def change_colors(self):
         if self.bonus is True:
@@ -64,7 +62,6 @@ class Ball_2(pygame.sprite.Sprite):
 
 
 class Ball_PU(pygame.sprite.Sprite):
-
     def __init__(self, width, height):
         super().__init__()
         self.image = pygame.Surface([width, height])
@@ -80,4 +77,3 @@ class Ball_PU(pygame.sprite.Sprite):
             self.rect.x -= self.vel
         if self.direction == 1:
             self.rect.x += self.vel
-

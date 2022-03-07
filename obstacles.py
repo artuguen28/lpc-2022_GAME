@@ -1,7 +1,13 @@
 import pygame
 from config import *
 
-block_colors = [colors["Blue"], colors["Orange"], colors["Green"], colors["Yellow"], colors["Red"]]
+block_colors = [
+    colors["Blue"],
+    colors["Orange"],
+    colors["Green"],
+    colors["Yellow"],
+    colors["Red"],
+]
 
 all_bricks = pygame.sprite.Group()
 all_bricks_pu = pygame.sprite.Group()
@@ -29,12 +35,12 @@ def draw_obstacles():
     dist = 0
     # type of the obstacle
     obstacle_type = 0
-    
+
     for i in range(2):
 
         if i == 0:
             # Obstacles coordinates
-            x = (SCREEN_WIDTH/2) - 18
+            x = (SCREEN_WIDTH / 2) - 18
 
         for j in range(2):
 
