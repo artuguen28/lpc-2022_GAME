@@ -77,7 +77,7 @@ class Ball_PU(pygame.sprite.Sprite):
 
     def update(self):
         if self.direction == 0:
-            self.rect.x += self.vel
-        if self.direction == 1:
             self.rect.x -= self.vel
+        if self.direction == 1:
+            self.rect.x += self.vel
 

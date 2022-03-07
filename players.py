@@ -20,4 +20,3 @@ class Paddle(pygame.sprite.Sprite):
         self.rect.y += pixels
         if self.rect.y > SCREEN_HEIGHT - self.height - WALL_WIDTH:
             self.rect.y = SCREEN_HEIGHT - self.height - WALL_WIDTH
-

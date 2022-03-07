@@ -28,6 +28,3 @@ fps = 60
 # Paddles` variables
 paddle_width = 20
 paddle_height = 75
-
-paddle_1_speed = 10
-paddle_2_speed = 10

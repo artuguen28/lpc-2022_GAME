@@ -5,6 +5,7 @@ from obstacles import *
 # from game import *
 from wall import walls
 from ball import *
+from sys import exit
 
 # Initialize pygame for game machanics
 pygame.init()
@@ -41,21 +42,26 @@ player2.rect.y = (SCREEN_HEIGHT // 2) - (paddle_2_height // 2)
 # Balls
 
 ball_1 = Ball_1(14, 14)
-ball_1.rect.x = SCREEN_WIDTH // 4 - 7
-ball_1.rect.y = SCREEN_HEIGHT // 2 - 7
+ball_1.rect.x = 350
+ball_1.rect.y = 315
 
 ball_2 = Ball_2(14, 14)
-ball_2.rect.x = ((SCREEN_WIDTH * 3) // 4) - 7
-ball_2.rect.y = SCREEN_HEIGHT // 2 - 7
+ball_2.rect.x = 570
+ball_2.rect.y = 350
 
-ball_pu = Ball_PU(14,14)
-# ball_bonus.rect.x = Vai depender de onde o bloco foi quebrado
-# ball_bonus.rect.y = Vai depender de onde o bloco foi quebrado
+ball_pu = Ball_PU(14, 14)
+ball_pu.rect.x = 1000
+ball_pu.rect.y = 1000
 
 # Time control variables
 
 loop = 0
 seconds = 0
+
+# Victory condition
+
+win_1 = False
+win_2 = False
 
 # Powerups time and state in order
 
@@ -65,13 +71,13 @@ p2_active_1 = False
 p1_active_time_1 = 0
 p2_active_time_1 = 0
 
-#2
+# 2
 p1_active_2 = False
 p2_active_2 = False
 p1_active_time_2 = 0
 p2_active_time_2 = 0
 
-#3
+# 3
 p1_active_3 = False
 p2_active_3 = False
 p1_active_time_3 = 0
@@ -83,6 +89,8 @@ all_sprites_list.add(player1)
 all_sprites_list.add(player2)
 all_sprites_list.add(ball_1)
 all_sprites_list.add(ball_2)
+all_sprites_list.add(ball_pu)
+
 
 # Controls time of power ups
 def timer():
@@ -96,12 +104,36 @@ def timer():
 
     # Seconds have relation with the powerup released by the bricks also the total power ups
 
-    if seconds == 5:
+    if seconds == 2:
         seconds = 0
 
     # Counting seconds every 60 game loop interactions
     loop = loop + 1
 
+def victory_screen():
+    global win_1, win_2
+
+    font = pygame.font.Font('text_style/DSEG14Classic-Bold.ttf', 50)
+    font2 = pygame.font.Font('text_style/DSEG14Classic-Bold.ttf', 30)
+
+    if win_1 is True or win_2 is True:
+        while win_1 or win_2:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    exit(0)
+
+            screen.fill(colors["Black"])
+
+            walls()
+
+            if win_1 is True:
+                text = font.render("PLAYER 1 WINS!", True, colors["Blue_ball"])
+                screen.blit(text, ((SCREEN_HEIGHT // 2) + 20, (SCREEN_WIDTH // 2) - 300))
+            elif win_2 is True:
+                text = font.render("PLAYER 2 WINS!", True, colors["Red_ball"])
+                screen.blit(text, ((SCREEN_HEIGHT // 2) + 20, (SCREEN_WIDTH // 2) - 300))
+    else:
+        return 0
 
 # Increase the size of the player paddle
 def power_up_1():
@@ -205,16 +237,14 @@ def power_up_3():
 
 
 def main_game():
-
-    step = 0
-
+    global p1_active_2, p1_active_3, p2_active_2, p2_active_3, seconds, win_1, win_2
+    run = True
 
     score1 = 10
     score2 = 10
 
     start_p = True
     pause = False
-    
 
     font = pygame.font.Font('text_style/DSEG14Classic-Bold.ttf', 50)
     font2 = pygame.font.Font('text_style/DSEG14Classic-Bold.ttf', 30)
@@ -228,6 +258,7 @@ def main_game():
             if event.type == pygame.QUIT:
                 start_p = False
                 run = False
+                exit(0)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_p]:
@@ -238,16 +269,15 @@ def main_game():
 
         walls()
 
-
         if loop < 30:
-            text = font.render("PONGOUT", 1, colors["Red"])
-            screen.blit(text, ((SCREEN_HEIGHT// 2 ) - 10, (SCREEN_WIDTH// 2) - 300))
+            text = font.render("PONGOUT", True, colors["Red"])
+            screen.blit(text, ((SCREEN_HEIGHT // 2) - 10, (SCREEN_WIDTH // 2) - 300))
         else:
-            text = font.render("PONGOUT", 1, colors["White"])
-            screen.blit(text, ((SCREEN_HEIGHT// 2 ) - 10, (SCREEN_WIDTH// 2) - 300))
+            text = font.render("PONGOUT", True, colors["White"])
+            screen.blit(text, ((SCREEN_HEIGHT // 2) - 10, (SCREEN_WIDTH // 2) - 300))
 
-        text = font2.render("Press 'p' to start the game",1,  colors["White"])
-        screen.blit(text, ((SCREEN_HEIGHT// 2 ) - 150, (SCREEN_WIDTH// 2) - 100))
+        text = font2.render("Press 'p' to   start the game", True,  colors["White"])
+        screen.blit(text, ((SCREEN_HEIGHT // 2) - 150, (SCREEN_WIDTH // 2) - 100))
 
         pygame.display.update()
         clock.tick(fps)
@@ -257,6 +287,7 @@ def main_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                exit(0)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pause = True
@@ -267,6 +298,7 @@ def main_game():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
+                    exit(0)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pause = False
@@ -274,12 +306,11 @@ def main_game():
             screen.fill(colors["Black"])
 
             walls()
-            text = font.render("Pause",1,  colors["White"])
-            screen.blit(text, ((SCREEN_HEIGHT// 2 ) + 20, (SCREEN_WIDTH// 2) - 300))
+            text = font.render("Pause", True, colors["White"])
+            screen.blit(text, ((SCREEN_HEIGHT // 2) + 20, (SCREEN_WIDTH // 2) - 300))
 
-            text = font2.render("Press 'esc' to remain",1,  colors["White"])
-            screen.blit(text, ((SCREEN_HEIGHT// 2 ) - 110, (SCREEN_WIDTH// 2) - 150))
-
+            text = font2.render("Press 'esc' to remain", True,  colors["White"])
+            screen.blit(text, ((SCREEN_HEIGHT // 2) - 110, (SCREEN_WIDTH // 2) - 150))
 
             pygame.display.update()
             clock.tick(fps)
@@ -290,27 +321,42 @@ def main_game():
             player1.moveUP(paddle_1_speed)
         if keys[pygame.K_s]:
             player1.moveDOWN(paddle_1_speed)
-            
 
         if keys[pygame.K_UP]:
             player2.moveUP(paddle_2_speed)
         if keys[pygame.K_DOWN]:
             player2.moveDOWN(paddle_2_speed)
 
-
         all_sprites_list.update()
 
-        # Colisions ball 1
+        # Score player 1
+
         if ball_1.rect.x > SCREEN_WIDTH:
             score1 += 1
             score2 -= 2
             ball_1.rect.x = SCREEN_WIDTH // 4 - 7
             ball_1.rect.y = SCREEN_HEIGHT // 2 - 7
+            if score1 > 20:
+                score1 = 20
+                win_1 = True
+            elif score2 < 0:
+                score2 = 0
+                win_1 = True
 
         if ball_1.rect.x < 0:
             score1 -= 1
             ball_1.rect.x = SCREEN_WIDTH // 4 - 7
             ball_1.rect.y = SCREEN_HEIGHT // 2 - 7
+            if score1 > 20:
+                score1 = 20
+                win_1 = True
+                run = False
+            elif score2 < 0:
+                score2 = 0
+                win_1 = True
+                run = False
+
+        # Colisions ball 1
 
         if ball_1.rect.y > SCREEN_HEIGHT - WALL_WIDTH - 15:
             ball_1.vel[1] = -ball_1.vel[1]
@@ -325,25 +371,45 @@ def main_game():
 
         # Colision with normal bricks
 
-        brick_collision_list = pygame.sprite.spritecollide(ball_1, all_bricks, False)
+        brick_collision_list = pygame.sprite.spritecollide(ball_1, all_bricks, True)
         for brick in brick_collision_list:
+            if ball_pu.rect.x > 1000 or ball_pu.rect.x < -5:
+                brick.kill()
+            ball_pu.direction = 0
+            ball_pu.rect.x = brick.rect.x
+            ball_pu.rect.y = brick.rect.y
             ball_1.bounce()
-            brick.kill()
             brick_sound.play()
 
         # ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-        # Colisions ball 2
+        # Score player 2
         if ball_2.rect.x < 0:
             score1 -= 2
             score2 += 1
-            ball_2.rect.x = ((SCREEN_WIDTH * 3) // 4) - 7
+            ball_2.rect.x = 380
             ball_2.rect.y = SCREEN_HEIGHT // 2 - 7
+            if score2 > 20:
+                score2 = 20
+                win_2 = True
+                run = False
+            elif score1 < 0:
+                score1 = 0
+                win_2 = True
+                run = False
 
         if ball_2.rect.x > SCREEN_WIDTH:
             score2 -= 1
-            ball_2.rect.x = ((SCREEN_WIDTH * 3) // 4) - 7
+            ball_2.rect.x = 570
             ball_2.rect.y = SCREEN_HEIGHT // 2 - 7
+            if score2 > 20:
+                score2 = 20
+                win_2 = True
+            elif score1 < 0:
+                score1 = 0
+                win_2 = True
+
+        # Colisions ball 2
 
         if ball_2.rect.y > SCREEN_HEIGHT - WALL_WIDTH - 15:
             ball_2.vel[1] = -ball_2.vel[1]
@@ -359,12 +425,39 @@ def main_game():
         # Colision with normal bricks
 
         brick_collision_list = pygame.sprite.spritecollide(
-            ball_2, all_bricks, False)
+            ball_2, all_bricks, True)
 
         for brick in brick_collision_list:
-            brick.kill()
+            if ball_pu.rect.x > 1000 or ball_pu.rect.x < 0:
+                brick.kill()
+            ball_pu.direction = 1
+            ball_pu.rect.x = brick.rect.x
+            ball_pu.rect.y = brick.rect.y
             ball_2.bounce()
             brick_sound.play()
+
+        # ++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        # Colisions ball-PU
+
+        if pygame.sprite.collide_mask(ball_pu, player1):
+            ball_pu.direction = 1
+            ball_pu.rect.x = 1000
+            if seconds == 1:
+                p1_active_2 = True
+            elif seconds == 2:
+                p1_active_3 = True
+        if pygame.sprite.collide_mask(ball_pu, player2):
+            ball_pu.direction = 1
+            ball_pu.rect.x = 1000
+            if seconds == 1:
+                p2_active_2 = True
+            elif seconds == 2:
+                p2_active_3 = True
+
+        if ball_pu.rect.x < 0:
+            ball_pu.direction = 1
+            ball_pu.rect.x = 1000
 
         screen.fill(colors["Black"])
 
@@ -391,20 +484,18 @@ def main_game():
             screen.blit(text, (670, 41))
         else:
             text = font.render(str(f"{score2:03}"), 1, colors["Red"])
-            screen.blit(text, (150, 41))
+            screen.blit(text, (670, 41))
 
         all_sprites_list.draw(screen)
 
         pygame.display.update()
 
-
-        # power_up_1()
         power_up_2()
         power_up_3()
+        victory_screen()
 
         timer()
 
         clock.tick(fps)
-
 
 main_game()
